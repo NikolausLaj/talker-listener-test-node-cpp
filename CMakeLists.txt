@@ -1,21 +1,23 @@
-cmake_minimum_required(VERSION 3.5)   # Minimum version of CMake required
-project(test-talker)        # Name of your ROS 2 package
+cmake_minimum_required(VERSION 3.5)
+project(test-talker-listener)
 
-# Find all required packages
-find_package(ament_cmake REQUIRED)    # Required for building ROS 2 packages
-find_package(rclcpp REQUIRED)         # Required for ROS 2 C++ API
-find_package(std_msgs REQUIRED)       # Standard ROS 2 messages
+# Find necessary packages
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
 
-# Declare the executable
+# Add executables for both talker and listener
 add_executable(talker src/talker.cpp)
+add_executable(listener src/listener.cpp)
 
-# Link against the required libraries
+# Link against dependencies
 ament_target_dependencies(talker rclcpp std_msgs)
+ament_target_dependencies(listener rclcpp std_msgs)
 
-# Install the executable
+# Install both executables
 install(TARGETS
   talker
+  listener
   DESTINATION lib/${PROJECT_NAME})
 
-# Mark the package
 ament_package()
